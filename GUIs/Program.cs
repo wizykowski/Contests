@@ -16,8 +16,7 @@ namespace GUIs
         [STAThread]
         static void Main(string[] args)
         {
-            TCPClient client = new TCPClient(args[0], Int32.Parse(args[1]));
-            client.Login();
+            var client = new IOClient();
 
             var thread = new Thread(new ThreadStart(() =>
             {

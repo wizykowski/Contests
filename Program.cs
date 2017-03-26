@@ -30,13 +30,7 @@ namespace Deadline
             solver.Act();
         }
 
-        public static void RunClientWithSimulator()
-        {
-            RunSimulator();
-            RunClient("127.0.0.1", 500);
-        }
-
-        public static void RunClient(TCPClient client, Func<TCPClient, SolutionBase> newSolver)
+        public static void RunClient(IClient client, Func<IClient, SolutionBase> newSolver)
         {
             SolutionBase solver = newSolver(client);
             while (true)
@@ -47,51 +41,6 @@ namespace Deadline
             }
         }
 
-        public static void RunClient(string server, int port)
-        {
-            var client = new TCPClient(server, port);
-            client.Login();
-            RunClient(client, (c) => new SolutionBase(client));
-            client.Exit();
-        }
-
-        public static void RunSimulator()
-        {
-            var simulatorInfo = new ProcessStartInfo()
-            {
-                CreateNoWindow = false,
-                UseShellExecute = false,
-                RedirectStandardOutput = true,
-                RedirectStandardError = true,
-                WorkingDirectory = "Simulator",
-                FileName = "java",
-                Arguments = string.Format(@"-jar ""simulator.jar"" --level=..\Input\level{0}.in --tcp=500", GameState.LevelNumber)
-            };
-            var simulatorProcess = new Process
-            {
-                StartInfo = simulatorInfo,
-                EnableRaisingEvents = true
-            };
-            simulatorProcess.Exited += (sender, args) =>
-            {
-                Console.WriteLine("Symulator został zamknięty. Output:");
-                Console.WriteLine(((Process)sender).StandardOutput.ReadToEnd());
-                Console.WriteLine(((Process)sender).StandardError.ReadToEnd());
-                Environment.Exit(1);
-            };
-            simulatorProcess.Start();
-
-            var agentInfo = new ProcessStartInfo()
-            {
-                CreateNoWindow = true,
-                UseShellExecute = false,
-                FileName = "agent",
-                WindowStyle = ProcessWindowStyle.Hidden,
-                Arguments = string.Format("'Simulator ..\\Input\\level{0}.in'", GameState.LevelNumber).Replace('\'', '"')
-            };
-            Process.Start(agentInfo);
-        }
-
         static void Main(string[] args)
         {
             Console.OpenStandardInput();
@@ -99,8 +48,6 @@ namespace Deadline
 
             RunCase();
             //RunNCases();
-            // RunClient(args[0], Int32.Parse(args[1]));
-            // RunClientWithSimulator();
         }
     }
 }
