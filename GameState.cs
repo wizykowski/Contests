@@ -24,6 +24,7 @@ public abstract class GameStateObject
 public class GameState
 {
     public static readonly int LevelNumber = 1;
+    public int CaseNumber = 1;
 
     public GameState()
     {

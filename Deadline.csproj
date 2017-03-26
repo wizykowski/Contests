@@ -87,7 +87,6 @@
     <Reference Include="WindowsBase" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Clients\IClient.cs" />
     <Compile Include="Clients\IOClient.cs" />
     <Compile Include="Actions.cs" />
     <Compile Include="Extensions.cs" />
@@ -98,7 +97,6 @@
     <Compile Include="Simulator.cs" />
     <Compile Include="Solution.cs" />
     <Compile Include="SolutionBase.cs" />
-    <Compile Include="World.cs" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="_Commons\Algorithms\Algorithms.csproj">

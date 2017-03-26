@@ -7,19 +7,21 @@ using System.Threading.Tasks;
 
 namespace Deadline
 {
-    public class IOClient : IClient
+    public class IOClient
     {
         public void LearnState(GameState game)
         {
+            // TODO: Console.Readline();
             throw new NotImplementedException();
         }
 
         public bool TakeAction(Result r)
         {
+            // TODO: Console.WriteLine();
             throw new NotImplementedException();
         }
 
-        public void SaveResultIfBetter(Result r)
+        public void SaveResult(Result r)
         {
             // take name from executing file
             var location = System.Reflection.Assembly.GetExecutingAssembly().Location;
@@ -34,26 +36,18 @@ namespace Deadline
             var files = Directory.EnumerateFiles(resultDirectory, "*.txt");
             var file = files.Any() ? Path.GetFileNameWithoutExtension(files.First()) : null;
             var oldFilePath = file == null ? null : Path.Combine(resultDirectory, file + ".txt");
-            
-            // get its name as quality
-            var currentBest = file == null ? Result.WorstQuality : file.ParseAllTokens<long>();
 
-            // if lower than current then delete file and replace with current result
-            if(r.Quality > currentBest)
+            if (file != null)
+                File.Delete(oldFilePath);
+
+            var newFilePath = Path.Combine(resultDirectory, $"{GameState.LevelNumber}-{r.State.CaseNumber}.txt");
+            var stdout = Console.Out;
+            using (var writer = new StreamWriter(newFilePath))
             {
-                if (file != null)
-                    File.Delete(oldFilePath);
-
-
-                var newFilePath = Path.Combine(resultDirectory, r.Quality.ToString() + ".txt");
-                var stdout = Console.Out;
-                using(var writer = new StreamWriter(newFilePath))
-                {
-                    Console.SetOut(writer);
-                    TakeAction(r);
-                }
-                Console.SetOut(stdout);
+                Console.SetOut(writer);
+                TakeAction(r);
             }
+            Console.SetOut(stdout);
         }
     }
 }

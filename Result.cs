@@ -8,10 +8,8 @@ using System.Threading.Tasks;
 
 public class Result
 {
-    public long Quality;
     public GameState State;
     public List<SolutionAction> Actions = new List<SolutionAction>();
-    public const long WorstQuality = -1000000000;
 
     public Result(GameState state)
     {
@@ -22,14 +20,6 @@ public class Result
     {
         this.State = state;
         Actions = act.ToList();
-        // calculate quality
-        CalculateQuality();
-    }
-
-    public long CalculateQuality()
-    {
-        Quality = WorstQuality;
-        return Quality;
     }
 
     public void FixAndValidate()
@@ -45,10 +35,5 @@ public class Result
         {
             Console.Out.WriteLine(act.ToString());
         }
-    }
-
-    public Result PickBetter(Result other)
-    {
-        return CalculateQuality() >= other.CalculateQuality() ? this : other;
     }
 }

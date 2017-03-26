@@ -30,7 +30,7 @@ namespace Deadline
             solver.Act();
         }
 
-        public static void RunClient(IClient client, Func<IClient, SolutionBase> newSolver)
+        public static void RunClient(IOClient client, Func<IOClient, SolutionBase> newSolver)
         {
             SolutionBase solver = newSolver(client);
             while (true)

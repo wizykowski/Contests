@@ -10,7 +10,7 @@ using System.Threading;
 
 public class Solution : SolutionBase
 {
-    public Solution(IClient client, int time = 0)
+    public Solution(IOClient client, int time = 0)
         : base(client, time)
     { }
 
@@ -21,16 +21,8 @@ public class Solution : SolutionBase
 
     public override bool Act()
     {
-        Result real;
         SolveMini(0);
-        real = best;
-        for(int i=1;i<1000000;i++)
-        {
-            SolveMini(i);
-            real = real.PickBetter(best);
-            ioClient.SaveResultIfBetter(real);
-        }
-        best = real;
+        ioClient.SaveResult(best);
         TakeBestAction();
         return true;
     }
@@ -41,12 +33,6 @@ public class Solution : SolutionBase
 
         // solution
 
-        ImproveAfter(best);
         return true;
-    }
-
-    public void ImproveAfter(Result result)
-    {
-        return;
     }
 }

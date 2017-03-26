@@ -16,14 +16,14 @@ public class SolutionBase
     public static Random random = new Random();
     Stopwatch timer = new Stopwatch();
     
-    IClient client;
+    IOClient client;
     protected IOClient ioClient { get { return client as IOClient; } }
     protected GameState state;
     protected Result best;
 
     public const long INF = long.MaxValue / 10;
 
-    public SolutionBase(IClient client, double time = 0)
+    public SolutionBase(IOClient client, double time = 0)
     {
         this.client = client;
         this.timeRemaining = time;

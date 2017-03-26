@@ -224,9 +224,4 @@ public static class ClientExtensions
     {
         return String.Join(" ", data.Select(d => d.ToString()));
     }
-
 }
-
-
-
-

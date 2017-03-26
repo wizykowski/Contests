@@ -13,15 +13,10 @@ namespace GUIs
     {
         public System.Drawing.Point Selected;
         Grid grid;
-        public SolverUI(IClient c)
+        public SolverUI(IOClient c)
             : base(c)
         {
         }
-
-        //public SolverUI(IServer c)
-        //    : base(c)
-        //{
-        //}
 
         public void DrawState(Graphics g, Size s)
         {
