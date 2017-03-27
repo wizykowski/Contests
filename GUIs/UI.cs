@@ -32,8 +32,8 @@ namespace GUIs
 
         private void UI_MouseDown(object sender, MouseEventArgs e)
         {
-			// Not working yet.
-			
+            // Not working yet.
+            
             try
             {
                 Program.solverUI.Click(e.Button, new System.Drawing.Point(e.X, e.Y));
@@ -49,7 +49,7 @@ namespace GUIs
                 //}
             }
             catch (Exception ex) { }
-			
+            
         }
 
         private void UI_Load(object sender, EventArgs e)
